@@ -1,6 +1,7 @@
 package com.shinhands.mu.Stationary.controller.ViewController;
 
 import com.shinhands.mu.Stationary.dto.BillDTO;
+import com.shinhands.mu.Stationary.dto.BillResponseDTO;
 import com.shinhands.mu.Stationary.dto.BillStatusDTO;
 import com.shinhands.mu.Stationary.service.BillService;
 import com.shinhands.mu.Stationary.service.BillStatusService;
@@ -15,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "pages")
+@RequestMapping(value = "admin")
 public class AdminBillController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class AdminBillController {
 
     @GetMapping( value ="bill")
     public ModelMap getAllBill() {
-        List<BillDTO> billDTOList = billService.getAllBills();
+        List<BillResponseDTO> billDTOList = billService.getAllBills();
         List<BillStatusDTO> billStatusDTOList = billStatusService.getAllBillStatus();
         ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("billList", billDTOList);
@@ -37,18 +38,18 @@ public class AdminBillController {
     @GetMapping("bill/updateStatus")
     public String updateStatusBill(@RequestParam long id, @RequestParam long statusId, Model model) {
         billService.updateStatusBill(id, statusId);
-        return "redirect:/pages/bill";
+        return "redirect:/admin/bill";
     }
 
 //    @PostMapping("bill/update/payment/{id}")
 //    public String updatePaymentBill(@PathVariable long id, Model model) {
-//        billService.updateCompleteBill(id);
-//        return "redirect:/pages/bill";
+//        billService.updateStatusBill(id, 2L);
+//        return "redirect:/admin/bill";
 //    }
 
     @GetMapping("bill/delete/{id}")
     public String deleteBill(@PathVariable long id, Model model) {
         billService.deleteBill(id);
-        return "redirect:/pages/bill";
+        return "redirect:/admin/bill";
     }
 }

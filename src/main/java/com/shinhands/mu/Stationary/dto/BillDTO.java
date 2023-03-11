@@ -32,9 +32,4 @@ public class BillDTO {
     private Long idBillStatus;
 
     private Long customerId;
-
-    private String status;
-
-    private String customerName;
-
 }
